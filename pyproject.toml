@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "itereval"
+version = "0.1.0"
+description = "Iterative code evaluation with cost-per-solve metrics for LLM benchmarking"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Logan Neishloss", email = "lneishloss@gmail.com"},
+]
+keywords = ["llm", "evaluation", "benchmarking", "cost-per-solve", "humaneval"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "anthropic>=0.25.0",
+    "scipy>=1.10.0",
+]
+
+[project.optional-dependencies]
+tiktoken = ["tiktoken>=0.5.0"]
+datasets = ["datasets>=2.14.0", "pyyaml>=6.0"]
+minifier = ["python-minifier>=2.9.0"]
+figures = ["matplotlib>=3.7.0"]
+all = [
+    "tiktoken>=0.5.0",
+    "datasets>=2.14.0",
+    "pyyaml>=6.0",
+    "python-minifier>=2.9.0",
+    "matplotlib>=3.7.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.urls]
+Repository = "https://github.com/lneishloss/itereval"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["itereval*"]
+

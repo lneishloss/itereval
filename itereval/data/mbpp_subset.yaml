@@ -1,0 +1,253 @@
+# MBPP Subset - 20 representative problems
+# Source: Google MBPP Sanitized (CC-BY-4.0 License)
+# https://huggingface.co/datasets/google-research-datasets/mbpp
+
+problems:
+  - task_id: "mbpp/2"
+    entry_point: "similar_elements"
+    prompt: "Write a function to find the similar elements from the given two tuple lists."
+    test_code: |
+      assert similar_elements((3, 4, 5, 6),(5, 7, 4, 10)) == (4, 5)
+      assert similar_elements((1, 2, 3, 4),(5, 4, 3, 7)) == (3, 4)
+      assert similar_elements((11, 12, 14, 13),(17, 15, 14, 13)) == (13, 14)
+    canonical_solution: |
+      def similar_elements(test_tup1, test_tup2):
+          res = tuple(set(test_tup1) & set(test_tup2))
+          return res
+
+  - task_id: "mbpp/3"
+    entry_point: "is_not_prime"
+    prompt: "Write a python function to identify non-prime numbers."
+    test_code: |
+      assert is_not_prime(2) == False
+      assert is_not_prime(10) == True
+      assert is_not_prime(35) == True
+      assert is_not_prime(37) == False
+    canonical_solution: |
+      import math
+      def is_not_prime(n):
+          if n == 1:
+              return True
+          for i in range(2, int(math.sqrt(n)) + 1):
+              if n % i == 0:
+                  return True
+          return False
+
+  - task_id: "mbpp/4"
+    entry_point: "heap_queue_largest"
+    prompt: "Write a function to find the largest integers from a given list of numbers using heap queue algorithm."
+    test_code: |
+      assert heap_queue_largest([25, 35, 22, 85, 14, 65, 75, 22, 58], 3) == [85, 75, 65]
+      assert heap_queue_largest([25, 35, 22, 85, 14, 65, 75, 22, 58], 2) == [85, 75]
+      assert heap_queue_largest([25, 35, 22, 85, 14, 65, 75, 22, 58], 5) == [85, 75, 65, 58, 35]
+    canonical_solution: |
+      import heapq as hq
+      def heap_queue_largest(nums, n):
+          largest_nums = hq.nlargest(n, nums)
+          return largest_nums
+
+  - task_id: "mbpp/6"
+    entry_point: "differ_at_one_bit_pos"
+    prompt: "Write a python function to check whether the two numbers differ at one bit position only or not."
+    test_code: |
+      assert differ_at_one_bit_pos(13, 9) == True
+      assert differ_at_one_bit_pos(15, 8) == False
+      assert differ_at_one_bit_pos(2, 4) == False
+      assert differ_at_one_bit_pos(2, 3) == True
+    canonical_solution: |
+      def differ_at_one_bit_pos(a, b):
+          x = a ^ b
+          return x and (not(x & (x - 1)))
+
+  - task_id: "mbpp/7"
+    entry_point: "find_char_long"
+    prompt: "Write a function to find all words which are at least 4 characters long in a string."
+    test_code: |
+      assert find_char_long('Please move back to stream') == ['Please', 'move', 'back', 'stream']
+      assert find_char_long('Jing Thansen is a survey tance') == ['Jing', 'Thansen', 'survey', 'tance']
+      assert find_char_long('Zai is a good guy') == ['good']
+    canonical_solution: |
+      import re
+      def find_char_long(text):
+          return re.findall(r"\b\w{4,}\b", text)
+
+  - task_id: "mbpp/8"
+    entry_point: "square_nums"
+    prompt: "Write a function to find squares of individual elements in a list."
+    test_code: |
+      assert square_nums([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) == [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+      assert square_nums([10, 20, 30]) == [100, 400, 900]
+      assert square_nums([12, 15]) == [144, 225]
+    canonical_solution: |
+      def square_nums(nums):
+          return [i**2 for i in nums]
+
+  - task_id: "mbpp/9"
+    entry_point: "find_Rotations"
+    prompt: "Write a python function to find the minimum number of rotations (greater than 0) required to get the same string."
+    test_code: |
+      assert find_Rotations("aaaa") == 1
+      assert find_Rotations("ab") == 2
+      assert find_Rotations("abc") == 3
+    canonical_solution: |
+      def find_Rotations(s):
+          tmp = s + s
+          n = len(s)
+          for i in range(1, n + 1):
+              if s == tmp[i:i+n]:
+                  return i
+          return n
+
+  - task_id: "mbpp/11"
+    entry_point: "remove_Occ"
+    prompt: "Write a python function to remove first and last occurrence of a given character from the string."
+    test_code: |
+      assert remove_Occ("hello", "l") == "heo"
+      assert remove_Occ("abcda", "a") == "bcd"
+      assert remove_Occ("PHP", "P") == "H"
+    canonical_solution: |
+      def remove_Occ(s, ch):
+          s = s.replace(ch, '', 1)
+          s = s[::-1].replace(ch, '', 1)[::-1]
+          return s
+
+  - task_id: "mbpp/12"
+    entry_point: "sort_matrix"
+    prompt: "Write a function to sort a given matrix in ascending order according to the sum of its rows."
+    test_code: |
+      assert sort_matrix([[1, 2, 3], [2, 4, 5], [1, 1, 1]]) == [[1, 1, 1], [1, 2, 3], [2, 4, 5]]
+      assert sort_matrix([[1, 2, 3], [-2, 4, -5], [1, -1, 1]]) == [[-2, 4, -5], [1, -1, 1], [1, 2, 3]]
+      assert sort_matrix([[5, 8, 9], [6, 4, 3], [2, 1, 4]]) == [[2, 1, 4], [6, 4, 3], [5, 8, 9]]
+    canonical_solution: |
+      def sort_matrix(matrix):
+          return sorted(matrix, key=sum)
+
+  - task_id: "mbpp/14"
+    entry_point: "find_Volume"
+    prompt: "Write a python function to find the volume of a triangular prism."
+    test_code: |
+      assert find_Volume(10, 8, 6) == 240
+      assert find_Volume(3, 2, 2) == 6
+      assert find_Volume(1, 2, 1) == 1
+    canonical_solution: |
+      def find_Volume(l, b, h):
+          return (l * b * h) / 2
+
+  - task_id: "mbpp/16"
+    entry_point: "text_lowercase_underscore"
+    prompt: "Write a function to convert a string to a list of strings, separated at underscores."
+    test_code: |
+      assert text_lowercase_underscore("red_black_white") == ['red', 'black', 'white']
+      assert text_lowercase_underscore("aab_cbbbc_ddddd") == ['aab', 'cbbbc', 'ddddd']
+      assert text_lowercase_underscore("Shaily_Thakur") == ['Shaily', 'Thakur']
+    canonical_solution: |
+      def text_lowercase_underscore(text):
+          return text.split('_')
+
+  - task_id: "mbpp/17"
+    entry_point: "square_perimeter"
+    prompt: "Write a function to find the perimeter of a square."
+    test_code: |
+      assert square_perimeter(10) == 40
+      assert square_perimeter(5) == 20
+      assert square_perimeter(4) == 16
+    canonical_solution: |
+      def square_perimeter(side):
+          return 4 * side
+
+  - task_id: "mbpp/18"
+    entry_point: "remove_dirty_chars"
+    prompt: "Write a function to remove characters from the first string which are present in the second string."
+    test_code: |
+      assert remove_dirty_chars("proaboratory", "pork") == "abatoy"
+      assert remove_dirty_chars("digitalindia", "diti") == "galnda"
+      assert remove_dirty_chars("exaboratory", "boring") == "exalaty"
+    canonical_solution: |
+      def remove_dirty_chars(str1, str2):
+          return ''.join(c for c in str1 if c not in str2)
+
+  - task_id: "mbpp/19"
+    entry_point: "big_diff"
+    prompt: "Write a function to find the difference between largest and smallest value in a given list."
+    test_code: |
+      assert big_diff([1, 2, 3, 4]) == 3
+      assert big_diff([4, 5, 12]) == 8
+      assert big_diff([9, 2, 3]) == 7
+    canonical_solution: |
+      def big_diff(nums):
+          return max(nums) - min(nums)
+
+  - task_id: "mbpp/56"
+    entry_point: "check_none"
+    prompt: "Write a python function to check if a given tuple contains all None values."
+    test_code: |
+      assert check_none((None, None, None)) == True
+      assert check_none((1, 2, None)) == False
+      assert check_none((None, 'test', None)) == False
+    canonical_solution: |
+      def check_none(test_tup):
+          return all(x is None for x in test_tup)
+
+  - task_id: "mbpp/57"
+    entry_point: "find_Max"
+    prompt: "Write a python function to find the maximum element in a sorted and rotated array."
+    test_code: |
+      assert find_Max([2, 3, 5, 6, 9]) == 9
+      assert find_Max([3, 4, 5, 2, 1]) == 5
+      assert find_Max([1, 2, 3]) == 3
+    canonical_solution: |
+      def find_Max(arr):
+          return max(arr)
+
+  - task_id: "mbpp/58"
+    entry_point: "opposite_Signs"
+    prompt: "Write a python function to check whether two numbers have opposite signs."
+    test_code: |
+      assert opposite_Signs(1, -2) == True
+      assert opposite_Signs(3, 2) == False
+      assert opposite_Signs(-10, -10) == False
+    canonical_solution: |
+      def opposite_Signs(x, y):
+          return (x ^ y) < 0
+
+  - task_id: "mbpp/59"
+    entry_point: "max_Abs_Diff"
+    prompt: "Write a python function to find the maximum absolute difference between any two elements in a given array."
+    test_code: |
+      assert max_Abs_Diff([2, 1, 5, 3]) == 4
+      assert max_Abs_Diff([9, 3, 2, 5, 1]) == 8
+      assert max_Abs_Diff([3, 2, 1]) == 2
+    canonical_solution: |
+      def max_Abs_Diff(arr):
+          return max(arr) - min(arr)
+
+  - task_id: "mbpp/61"
+    entry_point: "count_Substrings"
+    prompt: "Write a python function to count the number of substrings with the sum of digits equal to their length."
+    test_code: |
+      assert count_Substrings("112112") == 6
+      assert count_Substrings("111") == 6
+      assert count_Substrings("1101112") == 12
+    canonical_solution: |
+      def count_Substrings(s):
+          n = len(s)
+          count = 0
+          for i in range(n):
+              sum_digits = 0
+              for j in range(i, n):
+                  sum_digits += int(s[j])
+                  length = j - i + 1
+                  if sum_digits == length:
+                      count += 1
+          return count
+
+  - task_id: "mbpp/62"
+    entry_point: "smallest_num"
+    prompt: "Write a python function to find the smallest number in a list."
+    test_code: |
+      assert smallest_num([10, 20, 1, 45, 99]) == 1
+      assert smallest_num([1, 2, 3]) == 1
+      assert smallest_num([45, 46, 50, 60]) == 45
+    canonical_solution: |
+      def smallest_num(xs):
+          return min(xs)
