@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "The Hidden Lever in AI Coding Costs: Why Output Tokens Matter More Than Input"
+permalink: /
 ---
 
 # The Hidden Lever in AI Coding Costs: Why Output Tokens Matter More Than Input
