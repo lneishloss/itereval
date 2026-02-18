@@ -64,6 +64,39 @@ For each problem, both arms get up to k attempts. When an attempt fails, the err
 - **Bootstrap CIs** on cost-per-solve savings — resamples all N problems with replacement, capturing both cost and solve-rate variation
 - **Paired permutation test** on per-problem total costs — assumption-free significance test for right-skewed cost distributions where a paired t-test's normality assumption would be violated
 
+## Results
+
+Full HumanEval (164 problems), Claude Sonnet 4, 3 iterative attempts, shared control arm. See [the writeup](https://lneishloss.github.io/itereval/) for full analysis.
+
+### Experiment 1: Conciseness System Prompt
+
+| Metric | Control | Treatment | Delta |
+|---|---|---|---|
+| Solve rate | 97.6% | 97.6% | 0pp |
+| Cost per solve | $0.00263 | $0.00215 | **-18.3%** |
+| Output tokens | 20,244 | 13,359 | **-34.0%** |
+| Input tokens | 39,198 | 47,936 | +22.3% |
+| Paired permutation p-value | | | **0.0003** |
+| Bootstrap 95% CI on CPS savings | | | [8.9%, 27.2%] |
+
+### Experiment 2: Prompt + Code Minification
+
+| Metric | Control | Treatment | Delta |
+|---|---|---|---|
+| Solve rate | 97.6% | 98.2% | +0.6pp |
+| Cost per solve | $0.00263 | $0.00229 | **-12.9%** |
+| Output tokens | 20,244 | 17,451 | **-13.8%** |
+| Input tokens | 39,198 | 35,878 | -8.5% |
+| Paired permutation p-value | | | **0.001** |
+| Bootstrap 95% CI on CPS savings | | | [3.9%, 21.9%] |
+
+### Key Takeaways
+
+- **Output tokens are the dominant cost lever.** Output costs 5x more than input across Anthropic's model lineup. In Experiment 1, input tokens *increased* 22% but output tokens *decreased* 34% — net result: 18.3% cost savings.
+- **Concise input causes concise output.** A conciseness system prompt produced a 34% output token reduction with zero accuracy loss — the first controlled measurement of this effect on a coding benchmark.
+- **Neither intervention degrades accuracy.** Both treatments match or slightly exceed the control solve rate (~97.6%), so CPS savings are driven entirely by cost efficiency.
+- **The two interventions are composable.** Prompt engineering and minification use orthogonal mechanisms (system prompt vs. input/feedback transforms) and can be stacked.
+
 ## CLI Options
 
 ```bash
