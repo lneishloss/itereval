@@ -62,7 +62,7 @@ For each problem, both arms get up to k attempts. When an attempt fails, the err
 - **Wilson score intervals** for solve rates — preferred over normal approximation (Wald) intervals for small-sample binary outcomes (per Bowyer et al., ICML 2025)
 - **McNemar's test** for paired binary outcomes — the correct test for comparing two conditions on the same dataset (per Dietterich, 1998), using exact binomial test when discordant pairs < 25
 - **Bootstrap CIs** on cost-per-solve savings — resamples all N problems with replacement, capturing both cost and solve-rate variation
-- **Paired permutation test** on per-problem total costs — assumption-free significance test for right-skewed cost distributions where a paired t-test's normality assumption would be violated
+- **Paired permutation test** on per-problem total costs — distribution-free significance test for right-skewed cost distributions where a paired t-test's normality assumption would be violated
 
 ## Results
 
@@ -206,6 +206,26 @@ MIT
 ## Acknowledgments
 
 This framework grew out of research conducted with Victor de la Peña on prompt compression for LLM tool use. The evaluation methodology and cost-per-solve metric were developed independently, but the broader project context informed the research questions.
+
+## References
+
+1. **Wilson, E. B.** (1927). "Probable Inference, the Law of Succession, and Statistical Inference." *Journal of the American Statistical Association*, 22(158), 209–212. [DOI: 10.1080/01621459.1927.10502953](https://doi.org/10.1080/01621459.1927.10502953)
+   — Original derivation of the Wilson score interval used for solve-rate confidence intervals.
+
+2. **Bowyer, S., Aitchison, L., & Ivanova, D. R.** (2025). "Position: Don't Use the CLT in LLM Evals With Fewer Than a Few Hundred Datapoints." *Proceedings of the 42nd International Conference on Machine Learning (ICML)*, vol. 267, pp. 81143–81184. PMLR. [arXiv: 2503.01747](https://arxiv.org/abs/2503.01747)
+   — Recommends Wilson score intervals over Wald (normal-approximation) intervals for LLM evaluation with small sample sizes.
+
+3. **Dietterich, T. G.** (1998). "Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms." *Neural Computation*, 10(7), 1895–1923. [DOI: 10.1162/089976698300017197](https://doi.org/10.1162/089976698300017197)
+   — Recommends McNemar's test for paired comparisons of classifiers on the same dataset.
+
+4. **Chen, M., Tworek, J., Jun, H., Yuan, Q., Pinto, H. P. de O., Kaplan, J., et al.** (2021). "Evaluating Large Language Models Trained on Code." [arXiv: 2107.03374](https://arxiv.org/abs/2107.03374)
+   — Introduces the HumanEval benchmark and the pass@k metric for independent-sample code generation evaluation.
+
+5. **Efron, B. & Tibshirani, R. J.** (1993). *An Introduction to the Bootstrap*. Chapman & Hall/CRC.
+   — Canonical reference for the bootstrap confidence interval methodology used for cost-per-solve savings estimates.
+
+6. **Agresti, A. & Coull, B. A.** (1998). "Approximate Is Better than 'Exact' for Interval Estimation of Binomial Proportions." *The American Statistician*, 52(2), 119–126. [DOI: 10.1080/00031305.1998.10480550](https://doi.org/10.1080/00031305.1998.10480550)
+   — Demonstrates that Wilson intervals outperform Wald intervals for binomial proportion estimation, especially at small sample sizes.
 
 ## Author
 
